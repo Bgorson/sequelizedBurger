@@ -1,0 +1,96 @@
+<div class = "container d-flex justify-content-center">
+<img src= "/assets/img/burger.jpg">
+</div>
+<div class = "container d-flex justify-content-center">
+<h1>Burger Eating</h1>
+</div>
+
+
+<div class = "container">
+    <div class = "row justify-content-between">
+        <div class = "col-4">
+            <ul>
+              {{!-- goes through burger object and shows false devoured objects --}}
+                {{#each burgers}}
+
+                  {{#unless this.devoured}}
+                  <div class = "burgerDiv">
+                  <p class= "burgerName">{{this.id}}.{{this.burger_name}}</p>
+                  <button class ="devour btn btn-warning" data-id= "{{this.id}}">Eat Me</button>
+                  <br>
+                  </div>
+                  
+                  {{/unless}}
+
+                {{/each}}
+            </ul>
+
+        </div>
+        <div class = "col-4">
+          <ul>
+          {{#each burgers}}
+          {{!-- Goes through burger object and show only true devoured objects --}}
+                {{#if this.devoured}}
+                 <div class = "burgerDiv">
+                 <p>{{this.burger_name}}</p>
+                 </div>
+                {{/if}}
+            {{/each}}
+          </ul>
+    </div>
+ </div>
+</div>
+
+
+<div class = "container d-flex justify-content-center">
+<form class="create-form">
+
+  <div class="form-group burgerName">
+    <label for="burger">Burger Name:</label>
+    <input type="text" id="burger" name="name">
+
+
+
+  <button id= "submit" class= "btn btn-primary" type="submit">Add Burger</button>
+</form>
+  </div>
+</div>
+<div class = "container d-flex justify-content-center">
+<p>Enter the burger you want to eat and hit submit</p>
+</div>
+
+
+<script>
+  //submit click event
+$("#submit").on("click", function(event){
+  event.preventDefault();
+  var newBurger = {
+    name: $("#burger").val().trim()
+  }
+  //makes a post to ajax route
+  $.ajax("/api/burgers",{
+    type:'POST',
+    data:newBurger
+  }).then(
+    function(){
+      console.log("created new burger")
+      location.reload();
+    }
+  )
+  })
+  //devour button click event
+  $(".devour").on("click", function(){
+    var id = $(this).data("id");
+    $.ajax("/api/burgers/" +id, {
+      type:"PUT"
+    }).then(
+      //PUT method at api route
+      function(){
+      console.log("updated devour")
+      location.reload();
+      }
+    )
+  })
+
+
+</script>

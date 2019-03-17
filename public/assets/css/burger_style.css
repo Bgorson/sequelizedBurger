@@ -1,0 +1,18 @@
+body {
+    background-color: #EFF8E2
+}
+
+p {
+   color:#F08700
+}
+h1 {
+    color:#E3170A
+}
+.burgerName {
+    display: inline;
+    color:#F08700
+}
+.burgerDiv {
+    border-style:groove;
+    padding:20px;
+}
