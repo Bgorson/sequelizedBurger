@@ -1,36 +1,43 @@
 var express = require('express')
 var router = express.Router();
-var burger = require("../models/burger.js")
+var db = require("../models")
 
 //routes that are exported to server through router
 
 router.get("/", function(req, res) {
-    burger.selectAll(function(data) {
-      var obj = {
-        burgers: data
-      };
-      console.log(obj);
-      res.render("index",obj)
-    });
+  db.Burger.findAll({}).then(function(result){
+      console.log("Specific burger" + result[0].dataValues.burger_name)
+      res.render("index",
+      {
+        burgers: result
+      })
+    })
   });
 
 router.post("/api/burgers",function(req,res){
-    burger.insertOne([req.body.name,0],function(result){
-      res.json({id: result.insertId})
-    })
+  console.log(req.body)
+ db.Burger.create({
+   burger_name: req.body.name,
+   devoured: false
+ }).then(function(){
+   console.log("added")
+ })
   })
 
 router.put("/api/burgers/:id", function(req,res){
-  var name = "id = " + req.params.id;
-  console.log(name)
-  burger.updateOne(req.params.id, function(result) {
-    if (result.changedRows == 0) {
-      // If no rows were changed, then the ID must not exist, so 404
-      return res.status(404).end();
-    } else {
-      res.status(200).end();
+  let eatenBurger = {
+    id:req.params.id,
+    devoured: true
+  }
+  db.Burger.update(eatenBurger, {
+    where: {
+      id: req.params.id
     }
+  }).then(function(){
+    console.log("updated")
   })
+
+  
 })
 
 

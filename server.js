@@ -3,7 +3,8 @@ var express = require("express");
 var PORT = process.env.PORT || 8080;
 
 var app = express();
-
+var db = require("./models")
+db.sequelize.sync() 
 //Static Content directory. Is used to have a route to assettss
 app.use(express.static(__dirname+ "/public/"));
 

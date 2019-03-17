@@ -13,10 +13,10 @@
               {{!-- goes through burger object and shows false devoured objects --}}
                 {{#each burgers}}
 
-                  {{#unless this.devoured}}
+                  {{#unless dataValues.devoured}}
                   <div class = "burgerDiv">
-                  <p class= "burgerName">{{this.id}}.{{this.burger_name}}</p>
-                  <button class ="devour btn btn-warning" data-id= "{{this.id}}">Eat Me</button>
+                  <p class= "burgerName">{{dataValues.id}}.{{dataValues.burger_name}}</p>
+                  <button class ="devour btn btn-warning" data-id= "{{dataValues.id}}">Eat Me</button>
                   <br>
                   </div>
                   
@@ -30,9 +30,9 @@
           <ul>
           {{#each burgers}}
           {{!-- Goes through burger object and show only true devoured objects --}}
-                {{#if this.devoured}}
+                {{#if dataValues.devoured}}
                  <div class = "burgerDiv">
-                 <p>{{this.burger_name}}</p>
+                 <p>{{dataValues.burger_name}}</p>
                  </div>
                 {{/if}}
             {{/each}}

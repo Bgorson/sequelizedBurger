@@ -16,6 +16,6 @@ var connection = mysql.createConnection({
     database: "heroku_22ad994ed484a71"
 });
 
-module.exports = connection;
+// module.exports = connection;
 
 // mysql://bb341b64706ddc:d31463ce@us-cdbr-iron-east-03.cleardb.net/heroku_22ad994ed484a71?reconnect=true

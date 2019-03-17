@@ -89,4 +89,4 @@ var orm = {
   }
 };
 
-module.exports = orm;
+// module.exports = orm;
