@@ -36,10 +36,5 @@ router.put("/api/burgers/:id", function(req,res){
   }).then(function(){
     console.log("updated")
   })
-
-  
 })
-
-
-
 module.exports = router;
