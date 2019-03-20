@@ -3,5 +3,13 @@ module.exports = function(sequelize, DataTypes) {
     burger_name:DataTypes.STRING,
     devoured: DataTypes.BOOLEAN
   });
+
+  Burger.associate = function(models){
+    Burger.belongsTo(models.Customer, {
+      foreignKey: {
+        allowNull: true
+      }
+    })
+  }
   return Burger;
 };

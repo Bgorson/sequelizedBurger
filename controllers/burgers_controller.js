@@ -4,12 +4,15 @@ var db = require("../models")
 
 //routes that are exported to server through router
 
-router.get("/", function(req, res) {
+router.get("/",function(req,res){
+  res.redirect("/burgers")
+})
+
+router.get("/burgers", function(req, res) {
   db.Burger.findAll({}).then(function(result){
-      console.log("Specific burger" + result[0].dataValues.burger_name)
       res.render("index",
       {
-        burgers: result
+        burgers: result,
       })
     })
   });
@@ -21,13 +24,16 @@ router.post("/api/burgers",function(req,res){
    devoured: false
  }).then(function(){
    console.log("added")
+   res.redirect("/burgers")
  })
   })
 
-router.put("/api/burgers/:id", function(req,res){
+router.post("/api/burgers/:id", function(req,res){
+  console.log("This is req body " + req.body.name)
   let eatenBurger = {
     id:req.params.id,
-    devoured: true
+    devoured: true,
+    authorId: req.body.name
   }
   db.Burger.update(eatenBurger, {
     where: {
@@ -35,6 +41,8 @@ router.put("/api/burgers/:id", function(req,res){
     }
   }).then(function(){
     console.log("updated")
+    res.redirect("/burgers")
+   
   })
 })
 module.exports = router;

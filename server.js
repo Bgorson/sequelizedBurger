@@ -7,6 +7,7 @@ var db = require("./models")
 db.sequelize.sync() 
 //Static Content directory. Is used to have a route to assettss
 app.use(express.static(__dirname+ "/public/"));
+app.use(express.static(__dirname));
 
 // Parse application body
 app.use(express.urlencoded({ extended: true }));
