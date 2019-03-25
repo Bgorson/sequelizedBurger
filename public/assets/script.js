@@ -15,17 +15,20 @@ $("#submit").on("click", function (event) {
       }
     )
   })
+
   //devour button click event
   $(".devour").on("click", function () {
-      let customer = $("#customer").val();
-     console.log("devour was clicked")
+    //add a customer
+    let customer = $("#customer").val();
+    console.log("devour was clicked")
     var id = $(this).data("id");
-    $.ajax("/api/burgers/" + id, {
+    $.ajax("api/burgers/"+id, {
       type: "POST",
-      data: {name:customer}
-    }).then(function () {
-        window.location.href = "/burgers";
-        
+      data: {name:customer,
+            id:id}
+    }).then(
+      function(){
+        location.reload();
       }
     )
   })

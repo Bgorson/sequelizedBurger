@@ -29,20 +29,25 @@ router.post("/api/burgers",function(req,res){
   })
 
 router.post("/api/burgers/:id", function(req,res){
-  console.log("This is req body " + req.body.name)
+  console.log("This is req body " + JSON.stringify(req.body))
+  var newCustomer= {name:req.body.name}
   let eatenBurger = {
     id:req.params.id,
     devoured: true,
-    authorId: req.body.name
+    CustomerId: req.body.id
   }
-  db.Burger.update(eatenBurger, {
-    where: {
-      id: req.params.id
-    }
+  db.Customer.create(newCustomer).then(function(){
+    console.log("created")  
   }).then(function(){
-    console.log("updated")
-    res.redirect("/burgers")
-   
-  })
+    db.Burger.update(eatenBurger, {
+        where: {
+          id: req.params.id
+        }
+      }).then(function(){
+        res.redirect("/burgers")
+      })
+    })
+  
 })
+
 module.exports = router;
